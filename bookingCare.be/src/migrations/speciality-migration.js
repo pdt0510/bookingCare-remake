@@ -1,10 +1,6 @@
 'use strict';
 const types = {
   STRING: 'STRING',
-  BOOLEAN: 'BOOLEAN',
-  INTEGER: 'INTEGER',
-  DATE: 'DATE',
-  TEXT: 'TEXT',
   TEXTLONG: 'TEXTLONG',
   BLOBmedium: `BLOBmedium`,
 };

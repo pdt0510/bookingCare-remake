@@ -1,8 +1,8 @@
 'use strict';
 import { tableInfo, handleColTypes } from '../migrations/booking-migration';
-import { Sequelize, DataTypes, Model } from 'sequelize';
+import { Model } from 'sequelize';
 
-module.exports = () => {
+module.exports = (sequelize, DataTypes) => {
   class Booking extends Model {
     static associate(models) {}
   }
@@ -10,7 +10,7 @@ module.exports = () => {
   Booking.init(
     { ...handleColTypes(DataTypes, false) },
     {
-      sequelize: new Sequelize('sqlite::memory:'),
+      sequelize,
       modelName: tableInfo.tableName,
     },
   );

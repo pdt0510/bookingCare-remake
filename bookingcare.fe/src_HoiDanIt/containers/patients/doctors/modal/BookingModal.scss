@@ -1,0 +1,26 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.bookingModal-content {
+  .modal-header .close {
+    padding: 15px 15px;
+    font-size: 24px;
+  }
+
+  .modal-doctorIntro {
+    .doctorIntro-content {
+      margin-top: 0;
+
+      .doctorIntro-intro {
+        padding: 4px 17px;
+        height: fit-content;
+      }
+    }
+  }
+
+  .form-control:disabled {
+    background-color: #fff;
+  }
+}

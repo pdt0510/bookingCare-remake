@@ -1,17 +1,20 @@
 'use strict';
-import { Sequelize, DataTypes, Model } from 'sequelize';
+import { Model } from 'sequelize';
 import { tableInfo, handleColTypes } from '../migrations/schedule-migration';
 
-module.exports = () => {
+module.exports = (sequelize, DataTypes) => {
   class Schedule extends Model {
     static associate(models) {}
   }
+  const colsTypes = handleColTypes(DataTypes, false);
 
   Schedule.init(
-    { ...handleColTypes(DataTypes, false) },
     {
-      sequelize: new Sequelize('sqlite::memory:'),
-      modelName: tableInfo.tableName,
+      ...colsTypes,
+    },
+    {
+      sequelize,
+      modelName: `${tableInfo.tableName}`,
     },
   );
   return Schedule;

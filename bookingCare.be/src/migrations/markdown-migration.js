@@ -1,12 +1,6 @@
 const types = {
-  STRING: 'STRING',
-  BOOLEAN: 'BOOLEAN',
   INTEGER: 'INTEGER',
-  DATE: 'DATE',
-  TEXT: 'TEXT',
   TEXTLONG: 'TEXTLONG',
-  BLOBmedium: 'BLOBmedium',
-  BLOBlong: 'BLOBlong',
 };
 
 const names = {
@@ -87,13 +81,13 @@ const handleColTypes = (dbType, isSequelize = true) => {
       const [key, type] = element.split('-');
 
       if (type === types.STRING) {
-        result[key] = dbType.type;
+        result[key] = dbType.STRING;
       } else if (type === types.INTEGER) {
-        result[key] = dbType.type;
+        result[key] = dbType.INTEGER;
       } else if (type === types.BIGINT) {
-        result[key] = dbType.type;
+        result[key] = dbType.BIGINT;
       } else if (type === types.BOOLEAN) {
-        result[key] = dbType.type;
+        result[key] = dbType.BOOLEAN;
       } else if (type === types.DATE) {
         result[key] = dbType.DATE;
       } else if (type === types.TEXT) {

@@ -1,0 +1,11 @@
+.medical-pic-size {
+  background-size: contain;
+}
+
+.section-link {
+  color: black;
+  &:hover {
+    color: #17a2b8;
+    text-decoration: none;
+  }
+}

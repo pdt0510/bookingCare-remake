@@ -1,8 +1,8 @@
 'use strict';
-import { Sequelize, DataTypes, Model } from 'sequelize';
+import { Model } from 'sequelize';
 import { tableInfo, handleColTypes } from '../migrations/clinic-migration';
 
-module.exports = () => {
+module.exports = (sequelize, DataTypes) => {
   class Clinic extends Model {
     /**
      * Helper method for defining associations.
@@ -15,7 +15,7 @@ module.exports = () => {
   Clinic.init(
     { ...handleColTypes(DataTypes, false) },
     {
-      sequelize: new Sequelize('sqlite::memory:'),
+      sequelize,
       modelName: tableInfo.tableName,
     },
   );

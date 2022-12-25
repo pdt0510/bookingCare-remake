@@ -2,13 +2,6 @@
 
 const types = {
   STRING: 'STRING',
-  TEXT: 'TEXT',
-  TEXTLONG: 'TEXTLONG',
-  BOOLEAN: 'BOOLEAN',
-  INTEGER: 'INTEGER',
-  BIGINT: 'BIGINT',
-  DATE: 'DATE',
-  BLOBmedium: `BLOBmedium`,
   BLOBlong: `BLOBlong`,
 };
 

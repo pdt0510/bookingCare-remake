@@ -3,9 +3,9 @@ import {
   tableInfo,
   handleColTypes,
 } from '../migrations/doctor_clinic_specialty-migration';
+import { Model } from 'sequelize';
 
-import { Sequelize, DataTypes, Model } from 'sequelize';
-module.exports = () => {
+module.exports = (sequelize, DataTypes) => {
   class Doctor_Clinic_Specialty extends Model {
     static associate(models) {}
   }
@@ -13,7 +13,7 @@ module.exports = () => {
   Doctor_Clinic_Specialty.init(
     { ...handleColTypes(DataTypes, false) },
     {
-      sequelize: new Sequelize('sqlite::memory:'),
+      sequelize,
       modelName: tableInfo.tableName,
     },
   );

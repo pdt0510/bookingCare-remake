@@ -1,0 +1,12 @@
+@import '../../styles/styles.scss';
+
+.headerContainer {
+ z-index: 99;
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ background-color: $colormain;
+ color: $white-color;
+ height: $height40px;
+ position: relative;
+}

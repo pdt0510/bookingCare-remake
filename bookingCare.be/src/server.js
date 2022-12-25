@@ -2,7 +2,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import configViewEngine from './config/viewEngine';
-import initWebRoutes from './route/web';
+import initWebRoutes from './route/allRoutes';
 import 'dotenv/config';
 import connectDB from './config/connectDB';
 import cors from 'cors';

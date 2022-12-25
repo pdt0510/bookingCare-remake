@@ -1,8 +1,8 @@
 'use strict';
 import { tableInfo, handleColTypes } from '../migrations/allCode-migration';
-import { Sequelize, DataTypes, Model } from 'sequelize';
+import { Model } from 'sequelize';
 
-module.exports = () => {
+module.exports = (sequelize, DataTypes) => {
   class Allcode extends Model {
     /**
      * Helper method for defining associations.
@@ -16,7 +16,7 @@ module.exports = () => {
   Allcode.init(
     { ...handleColTypes(DataTypes, false) },
     {
-      sequelize: new Sequelize('sqlite::memory:'),
+      sequelize,
       modelName: tableInfo.tableName,
     },
   );

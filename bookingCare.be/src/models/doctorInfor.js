@@ -1,19 +1,18 @@
 'use strict';
 import { tableInfo, handleColTypes } from '../migrations/doctorInfor-migration';
+import { Model } from 'sequelize';
 
-import { Sequelize, DataTypes, Model } from 'sequelize';
-
-module.exports = () => {
+module.exports = (sequelize, DataTypes) => {
   class DoctorInfor extends Model {
     static associate(models) {}
   }
 
   DoctorInfor.init(
     {
-      ...handleColTypes(Sequelize),
+      ...handleColTypes(DataTypes, false),
     },
     {
-      sequelize: new Sequelize('sqlite::memory:'),
+      sequelize,
       modelName: tableInfo.tableName,
     },
   );

@@ -1,0 +1,29 @@
+@import '../../styles/styles.scss';
+
+.subMenu {
+ color: $text-in-light;
+ background-color: $bg-menu-color;
+ list-style: none;
+ text-align: left;
+
+ position: absolute;
+ flex-direction: column;
+ width: max-content;
+ display: none;
+
+ .subMenuLink {
+  padding: 0 8px;
+  line-height: $height40px - 10px;
+  color: $text-in-light;
+  text-decoration-line: none;
+
+  &.actived {
+   color: $colorActive;
+   font-weight: $fontWeight500;
+  }
+
+  &:hover {
+   background-color: $bg-menu-color-hover;
+  }
+ }
+}

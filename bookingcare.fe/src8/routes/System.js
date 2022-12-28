@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Outlet } from 'react-router-dom';
+import HeaderContainer from '../containers/header/HeaderContainer';
 
-class UserManager extends Component {
+class System extends Component {
  render() {
   return (
    <div>
-    <h1>UserManager route</h1>
+    <HeaderContainer />
+    <Outlet />
    </div>
   );
  }
@@ -17,4 +20,4 @@ const mapStateToProps = ({ appReducer }) => ({
 
 const mapDispatchToProps = (dispatch) => ({});
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserManager);
+export default connect(mapStateToProps, mapDispatchToProps)(System);

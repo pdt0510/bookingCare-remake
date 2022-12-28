@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './MenuGroup.scss';
 import { FormattedMessage } from 'react-intl';
 import SubMenu from '../subMenu/SubMenu';
-import * as varConsts from './../../utilities/constant';
+import * as varConsts from '../../utilities/constant';
 
 class MenuGroup extends Component {
  renderMenuGroup = () => {

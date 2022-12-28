@@ -7,7 +7,7 @@ import '@formatjs/intl-pluralrules/locale-data/en';
 import '@formatjs/intl-relativetimeformat/polyfill';
 import '@formatjs/intl-relativetimeformat/locale-data/vi';
 import '@formatjs/intl-relativetimeformat/locale-data/en';
-import CommonUtils from '../utilities/CommonUtils';
+import CommonUtils from '../utilities/commons';
 
 class TranslationHoc extends Component {
  render() {

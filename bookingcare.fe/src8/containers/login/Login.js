@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import './Login.scss';
 
-class UserManager extends Component {
+class Login extends Component {
  render() {
   return (
-   <div>
-    <h1>UserManager route</h1>
+   <div className='LoginContainer-content'>
+    <h1>LoginContainer page</h1>
    </div>
   );
  }
@@ -17,4 +18,4 @@ const mapStateToProps = ({ appReducer }) => ({
 
 const mapDispatchToProps = (dispatch) => ({});
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserManager);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

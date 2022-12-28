@@ -1,1 +1,13 @@
-@import 'variables.scss';
+// @import '_variables.scss';
+@import '../../node_modules/bootstrap/scss/bootstrap';
+
+// v41xx1
+$fa-font-path: '~@fortawesome/fontawesome-free-webfonts/webfonts';
+@import '~@fortawesome/fontawesome-free-webfonts/scss/fontawesome.scss';
+@import '~@fortawesome/fontawesome-free-webfonts/scss/fa-solid.scss';
+@import '~@fortawesome/fontawesome-free-webfonts/scss/fa-regular.scss';
+@import '~@fortawesome/fontawesome-free-webfonts/scss/fa-brands.scss';
+
+@import '_base.scss';
+@import '_types.scss';
+@import '_forms.scss'; //v41xx4

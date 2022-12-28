@@ -1,0 +1,94 @@
+@import '../../styles/_variables';
+
+.login-content {
+ .login-bgr {
+  height: $height100vh;
+  background: linear-gradient(to bottom right, #3fc0af 0%, #dfbb41 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .login-form {
+   background-color: white;
+   width: $width320;
+   border-radius: $borderRadius16;
+
+   .login-header {
+    font-size: $fontSize16 + 20;
+    margin: $distance24 0 $distance48;
+    font-weight: $fontWeight500;
+    text-align: center;
+   }
+
+   .login-body {
+    width: 80%;
+    margin: 0 auto;
+
+    .form-group {
+     margin-bottom: $distance24;
+
+     label {
+      margin-left: $distance24/2;
+     }
+
+     .group-flex {
+      display: flex;
+      justify-content: space-between;
+
+      .login-eye {
+       cursor: pointer;
+       color: $activeColor;
+       padding: 0 $distance24/3;
+      }
+     }
+
+     .forgotten-password {
+      display: block;
+      text-align: right;
+      margin-top: $distance24/2;
+      font-size: $fontSize16 - 4;
+
+      &:hover {
+       text-decoration: none;
+      }
+     }
+    }
+
+    .btn-login {
+     display: block;
+     border-radius: $borderRadius16;
+     font-weight: $fontWeight500 + 100;
+    }
+   }
+
+   .login-footer {
+    margin: $distance24 * 2 0 $distance24;
+    text-align: center;
+
+    .login-icons {
+     display: flex;
+     justify-content: center;
+     gap: $distance24;
+     margin: $distance24 0;
+     font-size: $fontSize16 + 20;
+
+     i {
+      &.facebook-color {
+       color: $fbColor;
+       font-size: $fontSize16 + 22;
+      }
+
+      &.google-color {
+       color: $ggColor;
+      }
+
+      &:hover {
+       opacity: 0.8;
+       cursor: pointer;
+      }
+     }
+    }
+   }
+  }
+ }
+}

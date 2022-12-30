@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { dateFormat, LANGUAGES } from './constant';
 
-class CommonUtils {
+class Commons {
  static convertFileToImgBlobUrl(fileObj) {
   return URL.createObjectURL(fileObj);
  }
@@ -87,28 +87,40 @@ class CommonUtils {
   }
  };
 
- // v32xx1
- static emailRegex = (emailStr) => {
-  const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-  return regex.test(emailStr);
+ static checkEmailRegex = (emailStr) => {
+  return new Promise(async (resolve, reject) => {
+   try {
+    const regex = /^\w+(\.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+    const isChecked = await regex.test(emailStr);
+    resolve(isChecked);
+   } catch (error) {
+    reject(error);
+   }
+  });
  };
 
- // v41xx4,  20 <= chars >= 8, chữ hoa, thường, số
- static username = (str) => {
+ static checkUsername = (str) => {
+  //20 <= chars >= 8, chữ hoa, thường, số
   const regex = /^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/;
   return regex.test(str);
  };
 
- static passwordRegex = (passwordStr) => {
-  // >= 8 chars, chữ hoa + thường + đặc biệt (`,..., +)
-  const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$/;
-  return regex.test(passwordStr);
+ static checkPasswordRegex = (passwordStr) => {
+  return new Promise(async (resolve, reject) => {
+   try {
+    // >= 8 chars, chữ hoa + thường + số + đặc biệt (! @ ^..)
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$/;
+    resolve(regex.test(passwordStr));
+   } catch (error) {
+    reject(error);
+   }
+  });
  };
 
- static numberRegex = (numberStr) => {
+ static numberRegex = (number) => {
   const regex = /^[0-9]+$/;
-  return regex.test(numberStr);
+  return regex.test(number);
  };
 }
 
-export default CommonUtils;
+export default Commons;

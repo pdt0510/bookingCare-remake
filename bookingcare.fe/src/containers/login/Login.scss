@@ -41,16 +41,16 @@
        padding: 0 $distance24/3;
       }
      }
+    }
 
-     .forgotten-password {
-      display: block;
-      text-align: right;
-      margin-top: $distance24/2;
-      font-size: $fontSize16 - 4;
+    .forgotten-password {
+     display: block;
+     text-align: right;
+     margin: 8 -$distance24 0 $distance24;
+     font-size: $fontSize16 - 4;
 
-      &:hover {
-       text-decoration: none;
-      }
+     &:hover {
+      text-decoration: none;
      }
     }
 
@@ -58,6 +58,11 @@
      display: block;
      border-radius: $borderRadius16;
      font-weight: $fontWeight500 + 100;
+    }
+
+    .login-mess {
+     color: $dangerColor;
+     font-size: $fontSize16 - 5;
     }
    }
 

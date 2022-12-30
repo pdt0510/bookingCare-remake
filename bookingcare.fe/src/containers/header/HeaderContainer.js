@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './HeaderContainer.scss';
-import * as combinedActs from '../../store/actions';
+import * as combinedActions from '../../store/actions';
 import { LANGUAGES } from '../../utilities/constant';
 import MenuGroup from '../../components/menuGroup/MenuGroup';
 import { adminMenu } from '../../supplies/routeSupplies';
@@ -33,7 +33,7 @@ const mapStateToProps = ({ appReducer }) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
- switchLanguage: () => dispatch(combinedActs.switchLanguage()),
+ switchLanguage: () => dispatch(combinedActions.switchLanguage()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HeaderContainer);

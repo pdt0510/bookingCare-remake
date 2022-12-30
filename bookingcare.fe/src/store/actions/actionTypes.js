@@ -4,6 +4,8 @@ const actionTypes = Object.freeze({
  SWITCH_LANGUAGE: 'SWITCH_LANGUAGE',
 
  //user
+ SUCCEEDED_USER_LOGIN: 'SUCCEEDED_USER_LOGIN',
+ FAILED_USER_LOGIN: 'FAILED_USER_LOGIN',
 });
 
 export default actionTypes;

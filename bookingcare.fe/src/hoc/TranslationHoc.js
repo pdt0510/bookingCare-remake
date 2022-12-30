@@ -7,12 +7,12 @@ import '@formatjs/intl-pluralrules/locale-data/en';
 import '@formatjs/intl-relativetimeformat/polyfill';
 import '@formatjs/intl-relativetimeformat/locale-data/vi';
 import '@formatjs/intl-relativetimeformat/locale-data/en';
-import CommonUtils from '../utilities/commons';
+import Commons from '../utilities/Commons';
 
 class TranslationHoc extends Component {
  render() {
   const { children, language } = this.props;
-  const idMessageList = CommonUtils.getLangFiles();
+  const idMessageList = Commons.getLangFiles();
 
   return (
    <IntlProvider

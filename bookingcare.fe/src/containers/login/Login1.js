@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './Login.scss';
 import Commons from '../../utilities/Commons';
-import { clientMessages } from '../../utilities/constant';
-import * as combinedActions from '../../store/actions';
+import * as userServ from '../../services/userService';
 
-//Login2
+//Login1
 class Login extends Component {
  state = {
   email: '',
@@ -22,15 +21,15 @@ class Login extends Component {
   const isPassword = await Commons.checkPasswordRegex(password);
 
   if (isEmail && isPassword) {
-   const result = await this.props.userLoginFn({ email, password }); // v45xx2
-
+   const result = await userServ.loginUserFn({ email, password }); // v45xx1
    if (result.errCode === 0) {
     this.resetForm();
    } else {
     this.setMessToForm(result.message);
    }
   } else {
-   const { emailErr, passwordErr } = clientMessages;
+   const emailErr = 'Email is not correct';
+   const passwordErr = 'At least 8 chars, including of upper/lower/number/special (@ * , ! ...)';
    this.setMessToForm(
     null,
     isEmail === false ? emailErr : null,
@@ -143,14 +142,10 @@ class Login extends Component {
  }
 }
 
-const mapStateToProps = ({ appReducer, userReducer }) => ({
+const mapStateToProps = ({ appReducer }) => ({
  language: appReducer.language,
- isLoggedIn: userReducer.isLoggedIn, //v45xx2
- userInfo: userReducer.userInfo,
 });
 
-const mapDispatchToProps = (dispatch) => ({
- userLoginFn: (info) => dispatch(combinedActions.userLoginFn(info)), //v45xx2
-});
+const mapDispatchToProps = (dispatch) => ({});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

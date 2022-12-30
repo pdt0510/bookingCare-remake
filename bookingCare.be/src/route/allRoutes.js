@@ -13,6 +13,7 @@ const initWebRoutes = (app) => {
   getUserByIdApi,
   updateUserByIdApi,
   deleteUserByIdApi,
+  loginUserApi,
  } = urls;
 
  const {
@@ -21,13 +22,15 @@ const initWebRoutes = (app) => {
   getUserByIdCtrl,
   updateUserByIdCtrl,
   deleteUserByIdCtrl,
+  loginUserCtrl,
  } = userCtrls;
 
- appRouter.post(apiUrl + createTestAccountApi, createTestAccountCtrl); //v32xx1
- appRouter.get(apiUrl + getAllUsersApi, getAllUsersCtrl); //v33xx1
- appRouter.get(apiUrl + getUserByIdApi, getUserByIdCtrl); //v34xx1
- appRouter.patch(apiUrl + updateUserByIdApi, updateUserByIdCtrl); //v34xx3
- appRouter.delete(apiUrl + deleteUserByIdApi, deleteUserByIdCtrl); //v34xx3
+ appRouter.post(apiUrl + createTestAccountApi, createTestAccountCtrl);
+ appRouter.get(apiUrl + getAllUsersApi, getAllUsersCtrl);
+ appRouter.get(apiUrl + getUserByIdApi, getUserByIdCtrl);
+ appRouter.patch(apiUrl + updateUserByIdApi, updateUserByIdCtrl);
+ appRouter.delete(apiUrl + deleteUserByIdApi, deleteUserByIdCtrl);
+ appRouter.post(apiUrl + loginUserApi, loginUserCtrl); //v43xx1
 
  return app.use(homeUrl, appRouter);
 };

@@ -2,6 +2,37 @@ import { apiStates } from '../supplies/apiSupplies';
 import db from '../models/index';
 import bcrypt from 'bcrypt';
 
+export const loginUserServ = (info) => {
+ return new Promise(async (resolve, reject) => {
+  try {
+   let result = {
+    errCode: apiStates.incorrectInfo.errCode,
+    status: apiStates.incorrectInfo.status,
+    message: apiStates.incorrectInfo.mesGroup.account,
+   };
+
+   const user = await db.users.findOne({
+    where: { email: info.email },
+    attributes: ['id', 'email', 'password', 'firstName', 'lastName'],
+   });
+
+   if (user) {
+    const isMatched = await checkPassword(info.password, user.password);
+    if (isMatched) {
+     result = {
+      ...apiStates.noErrors,
+      user: { ...user, password: undefined },
+     };
+    }
+   }
+
+   resolve(result);
+  } catch (error) {
+   reject(error);
+  }
+ });
+};
+
 export const deleteUserByIdServ = (id) => {
  return new Promise(async (resolve, reject) => {
   try {
@@ -102,11 +133,23 @@ export const getAllUsersApiServ = () => {
  });
 };
 
-const checkPassword = (password, hashed) => {
+export const createTestAccountServ = (newData) => {
  return new Promise(async (resolve, reject) => {
   try {
-   const isChecked = await bcrypt.compare(password, hashed);
-   resolve(isChecked);
+   const successed = true;
+   let result = apiStates.notCreated;
+   const hashedPassword = await convertToHashedPassword(newData.password);
+
+   const isCreated = await db.users.create({
+    ...newData,
+    password: hashedPassword,
+   });
+
+   if (isCreated._options.isNewRecord === successed) {
+    result = apiStates.noErrors;
+   }
+
+   resolve(result);
   } catch (error) {
    reject(error);
   }
@@ -125,23 +168,11 @@ const convertToHashedPassword = (password) => {
  });
 };
 
-export const createTestAccountServ = (newData) => {
+const checkPassword = (password, hashed) => {
  return new Promise(async (resolve, reject) => {
   try {
-   const successed = true;
-   let result = apiStates.notCreated;
-   const hashedPassword = await convertToHashedPassword(newData.password);
-
-   const isCreated = await db.users.create({
-    ...newData,
-    password: hashedPassword,
-   });
-
-   if (isCreated._options.isNewRecord === successed) {
-    result = apiStates.noErrors;
-   }
-
-   resolve(result);
+   const isChecked = await bcrypt.compare(password, hashed);
+   resolve(isChecked);
   } catch (error) {
    reject(error);
   }

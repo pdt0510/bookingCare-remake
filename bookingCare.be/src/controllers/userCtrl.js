@@ -1,5 +1,41 @@
 import { apiStates } from '../supplies/apiSupplies';
 import * as accServ from '../services/userServ';
+import Commons from './../utilities/Commons';
+import * as constVals from '../utilities/constant';
+
+export const loginUserCtrl = async (req, res) => {
+ let data = null;
+ let isValid = true;
+ const infoObj = req.body;
+ const { email, password } = constVals.ObjectKeysValues;
+
+ for (const key in infoObj) {
+  if (key === email) {
+   isValid = await Commons.checkEmailRegex(infoObj[key]);
+  } else if (key === password) {
+   isValid = await Commons.checkPasswordRegex(infoObj[key]);
+  }
+  if (isValid === false) {
+   break;
+  }
+ }
+
+ if (isValid === false) {
+  data = {
+   errCode: apiStates.incorrectInfo.errCode,
+   status: apiStates.incorrectInfo.status,
+   message: apiStates.incorrectInfo.mesGroup.account,
+  };
+ } else {
+  try {
+   data = await accServ.loginUserServ(infoObj);
+  } catch (error) {
+   console.log('loginUserCtrl error', error);
+  }
+ }
+
+ return res.status(data.status).json(data);
+};
 
 export const deleteUserByIdCtrl = async (req, res) => {
  const id = +req.query.id;
@@ -27,7 +63,7 @@ export const updateUserByIdCtrl = async (req, res) => {
 
  if (id && typeof id === 'number') {
   let isEmpty = false;
-  const newData = req.body; //v34xx2
+  const newData = req.body;
 
   for (const key in newData) {
    if (newData[key] === '' || newData[key] === null || newData[key] === undefined) {
@@ -51,7 +87,7 @@ export const updateUserByIdCtrl = async (req, res) => {
 
 export const getUserByIdCtrl = async (req, res) => {
  let data = null;
- const id = +req.query.id; //v34xx2
+ const id = +req.query.id;
 
  if (id && typeof id === 'number') {
   try {
@@ -81,17 +117,34 @@ export const getAllUsersCtrl = async (req, res) => {
 
 export const createTestAccountCtrl = async (req, res) => {
  let data = null;
+ let isValid = true;
  let isEmpty = false;
- const newData = req.body; //v34xx2
+ const newData = req.body;
 
  for (const key in newData) {
-  if (newData[key] === '' || newData[key] === null || newData[key] === undefined) {
+  if (newData[key] === null || newData[key] === undefined) {
    isEmpty = true;
+  }
+
+  if (key === 'email') {
+   isValid = await Commons.checkEmailRegex(newData[key]);
+  } else if (key === 'password') {
+   isValid = await Commons.checkPasswordRegex(newData[key]);
+  }
+
+  if (isEmpty || isValid === false) {
+   break;
   }
  }
 
  if (isEmpty) {
   data = apiStates.fieldRequired;
+ } else if (isValid === false) {
+  data = {
+   errCode: apiStates.incorrectInfo.errCode,
+   status: apiStates.incorrectInfo.status,
+   message: apiStates.incorrectInfo.mesGroup.account,
+  };
  } else {
   try {
    data = await accServ.createTestAccountServ(newData);

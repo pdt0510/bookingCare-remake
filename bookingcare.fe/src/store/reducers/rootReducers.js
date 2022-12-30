@@ -16,15 +16,15 @@ const commonPersistConfig = {
 
 const userPersistConfig = {
  ...commonPersistConfig,
- key: user,
- whitelist: [isLoadingSymbol], //v54xx3
+ key: user, //key for Local storage
+ whitelist: [isLoadingSymbol], //v45xx3
  blacklist: [isLoggedIn, userInfo],
 };
 
 const appPersistConfig = {
  ...commonPersistConfig,
  key: app,
- whitelist: [language], //v54xx3
+ whitelist: [language],
 };
 
 const rootReducers = combineReducers({

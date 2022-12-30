@@ -1,9 +1,13 @@
-export const ObjectKeysValues = {
+export const ObjectKeysValues = Object.freeze({
  //user
  user: 'user',
  userInfo: 'userInfo',
  isLoggedIn: 'isLoggedIn',
  isLoadingSymbol: 'isLoadingSymbol',
+
+ //login comp
+ email: 'email',
+ password: 'password',
 
  //app
  vi: 'vi',
@@ -14,7 +18,7 @@ export const ObjectKeysValues = {
  //others
  activeClass: 'actived',
  menuGroupClass: 'menuGroup',
-};
+});
 
 export const LANGUAGES = {
  VI: ObjectKeysValues.vi,

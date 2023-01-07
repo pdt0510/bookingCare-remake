@@ -3,9 +3,10 @@ $fontmain: 'Helvetica', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, '
  'Noto Color Emoji';
 
 //color
-$mianColor: #0071ba;
+$mainColor: #0071ba;
 $subColor: #bb8d09;
 $activeColor: #0000ffe6;
+$customBlueColor: #0b0bc2e6;
 $whiteColor: white;
 $denyColor: #bb8d09;
 $errorColor: #ff9600;
@@ -21,6 +22,8 @@ $ggColor: #dc4e41;
 $dangerColor: #e05555;
 $successColor: #4caf50;
 $defaultColor: #0056b3;
+$primaryColor: #007bff;
+$primaryColorLight: #409bff;
 
 $inputFocusColor: #ffac42;
 
@@ -38,15 +41,33 @@ $menuHoverColor: #05558a;
 
 //size
 $fontSize16: 16px;
+$fontSize32: 32x;
 $fontWeight500: 500;
+$lineHeight40: 40px;
 
 $minWidth30: 30px;
 $width320: 320px;
 
 $height40: 40px;
+$height100: 100px;
 $height100vh: 100vh;
+
+$width40: 24px;
+$width48: 48px;
+$width100: 100px;
 
 $borderRadius16: 16px;
 
 $distance24: 24px;
 $distance48: 48px;
+$distance100: 100px;
+
+$padding24: 24px;
+$padding48: 48px;
+$padding100: 100px;
+
+$margin24: 24px;
+$margin48: 48px;
+$margin100: 100px;
+
+$opacity07: 0.7;

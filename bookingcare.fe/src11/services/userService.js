@@ -1,12 +1,12 @@
 import axios from '../axios';
 import * as apiSupplies from '../supplies/apiSupplies';
 
-//v45xx2
-export const loginUserServ = (info) => {
+// v47xx3
+export const GetAllUsersServ = () => {
  return new Promise(async (resolve, reject) => {
   try {
-   const { apiUrl, loginUserApi } = apiSupplies.urls;
-   const result = await axios.post(apiUrl + loginUserApi, info);
+   const { apiUrl, getAllUsersApi } = apiSupplies.urls;
+   const result = await axios.get(apiUrl + getAllUsersApi);
    resolve(result);
   } catch (error) {
    reject(error);
@@ -14,8 +14,7 @@ export const loginUserServ = (info) => {
  });
 };
 
-// v45xx1
-export const loginUserServ1 = (info) => {
+export const loginUserServ = (info) => {
  return new Promise(async (resolve, reject) => {
   try {
    const { apiUrl, loginUserApi } = apiSupplies.urls;

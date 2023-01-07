@@ -12,15 +12,16 @@ html {
  background-repeat: no-repeat;
  background-size: cover;
  font-family: $fontmain;
- font-size: $fontSize16 - 2px;
+ font-size: $fontSize16 - 2;
  height: $height100vh;
  overflow: hidden;
 }
 
 .BTN {
  display: inline-block;
- padding: 4px 8px;
- border-radius: 4px;
+ min-width: 60px;
+ padding: $padding24/6 $padding24/3;
+ border-radius: $borderRadius16/4;
  text-align: center;
  cursor: pointer;
  color: white;
@@ -30,7 +31,11 @@ html {
  }
 
  &.BTN-default {
-  background-color: $dangerColor;
+  background-color: $defaultColor;
+ }
+
+ &.BTN-primary {
+  background-color: $primaryColor;
  }
 
  &.BTN-success {
@@ -38,6 +43,6 @@ html {
  }
 
  &.BTN-danger {
-  background-color: $defaultColor;
+  background-color: $dangerColor;
  }
 }

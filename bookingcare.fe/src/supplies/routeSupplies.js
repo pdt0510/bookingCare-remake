@@ -5,12 +5,14 @@ import System from '../routes/System';
 import HomePage from '../components/homePage/HomePage';
 import Login from '../containers/login/Login';
 import * as lang from '../utilities/groupedLangs';
+import { Navigate } from 'react-router-dom';
 
-const { parentMenuLang, subMenuLang } = lang;
+const { parentMenuLang, subMenuLangs } = lang;
 const { userL, clinicL, specialityL, handbookL } = parentMenuLang;
 
 export const paths = Object.freeze({
  home: '/',
+ homePage: '/home',
  allPaths: '*',
  notFound: '/not-found',
  system: '/system',
@@ -31,6 +33,15 @@ export const parentRoutes = [
  {
   path: paths.home,
   element: <HomePage />,
+ },
+ {
+  path: paths.homePage,
+  element: (
+   <Navigate
+    to={paths.home}
+    replace={true}
+   />
+  ),
  },
  {
   path: paths.system,
@@ -87,7 +98,7 @@ export const systemRoutes = [
   element: <UserManager />,
  },
 
- //index route
+ //index route (path *)
  {
   index: true,
   element: <UserManager />,
@@ -100,19 +111,19 @@ export const adminMenu = [
   name: userL,
   subMenu: [
    {
-    name: subMenuLang.userManagerL,
+    name: subMenuLangs.userManagerL,
     link: systemLinks.userManagerLink,
    },
    {
-    name: subMenuLang.doctorManagerL,
+    name: subMenuLangs.doctorManagerL,
     link: systemLinks.doctorManagerLink,
    },
    {
-    name: subMenuLang.scheduleManagerL,
+    name: subMenuLangs.scheduleManagerL,
     link: systemLinks.scheduleManagerLink,
    },
    {
-    name: subMenuLang.adminManagerL,
+    name: subMenuLangs.adminManagerL,
     link: systemLinks.adminManagerLink,
    },
   ],
@@ -123,7 +134,7 @@ export const adminMenu = [
   name: clinicL,
   subMenu: [
    {
-    name: subMenuLang.clinicManagerL,
+    name: subMenuLangs.clinicManagerL,
     link: systemLinks.clinicManagerLink,
    },
   ],
@@ -134,7 +145,7 @@ export const adminMenu = [
   name: specialityL,
   subMenu: [
    {
-    name: subMenuLang.specialityManagerL,
+    name: subMenuLangs.specialityManagerL,
     link: systemLinks.specialityManagerLink,
    },
   ],
@@ -145,7 +156,7 @@ export const adminMenu = [
   name: handbookL,
   subMenu: [
    {
-    name: subMenuLang.handbookManagerL,
+    name: subMenuLangs.handbookManagerL,
     link: systemLinks.handbookManagerLink,
    },
   ],

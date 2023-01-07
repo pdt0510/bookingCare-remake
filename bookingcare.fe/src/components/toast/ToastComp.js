@@ -7,7 +7,7 @@ class ToastComp extends Component {
   return (
    <ToastContainer
     position='top-right'
-    autoClose={5000}
+    // autoClose={maintaining} // default = 5000ms
     hideProgressBar={false}
     newestOnTop={false}
     closeOnClick

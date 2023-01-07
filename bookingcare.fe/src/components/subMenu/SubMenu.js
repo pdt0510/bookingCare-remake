@@ -43,20 +43,21 @@ class SubMenu extends Component {
  handleActive = (event) => {
   const { activeClass, menuGroupClass } = varConsts.ObjectKeysValues;
   const currentEle = event.target;
-  let currentEleIsNotActived = true;
+  let currentEleIsActived = false;
 
   if (currentEle) {
    const length = currentEle.classList.length;
    for (let idx = 0; idx < length; idx++) {
     if (currentEle.classList[idx] === activeClass) {
-     currentEleIsNotActived = false;
+     currentEleIsActived = true;
+     break;
     }
    }
   }
 
-  if (currentEleIsNotActived) {
+  if (currentEleIsActived === false) {
    const activedEle = document.querySelector(
-    `.headerContainer-content .${menuGroupClass} .subMenu .${activeClass}`,
+    `.header-content .${menuGroupClass} .subMenu .${activeClass}`,
    );
 
    const currentParent = this.getParentEle(currentEle);
@@ -73,17 +74,27 @@ class SubMenu extends Component {
  };
 
  renderSubMenu = () => {
+  let isThisRoute = false;
+  let { usingRoutePath, subMenu } = this.props;
   const { activeClass } = varConsts.ObjectKeysValues;
-  const { defaultActive } = this.props;
-  const active1st = 0;
 
-  const subMenuList = this.props.subMenu.map((item, idx) => {
+  const subMenuList = subMenu.map((item, idx) => {
    const { name, link } = item;
+
+   if (usingRoutePath) {
+    if (isThisRoute) {
+     isThisRoute = false;
+     usingRoutePath = null;
+    } else {
+     isThisRoute = usingRoutePath === item.link;
+    }
+   }
+
    return (
     <Link
      to={link}
      key={idx}
-     className={`subMenuLink ${defaultActive && idx === active1st ? activeClass : ''}`}
+     className={`subMenuLink ${isThisRoute ? activeClass : ''}`}
      onClick={this.handleActive}
     >
      <FormattedMessage id={name} />

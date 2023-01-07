@@ -2,7 +2,7 @@ export const urls = Object.freeze({
  homeUrl: '/',
  apiUrl: '/api',
  id: '/:id',
- createTestAccountApi: '/create-test-acc',
+ createAccountApi: '/create-acc',
  getAllUsersApi: '/get-all-users',
  getUserByIdApi: '/get-user-by-id',
  updateUserByIdApi: '/update-user-by-id',
@@ -32,6 +32,7 @@ export const apiStates = Object.freeze({
   mesGroup: {
    id: 'Incorrect id',
    email: 'Incorrect email',
+   existedEmail: 'Existed email',
    account: 'Your account is incorrect',
    password: 'Incorrect password',
    isActived: 'Verified booking is actived already',

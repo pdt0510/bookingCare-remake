@@ -1,12 +1,14 @@
 import actionTypes from './actionTypes';
-import * as userServ from '../../services/userService';
+import * as userServClient from '../../services/userServiceClient';
+import * as constVals from '../../utilities';
 
-// v45xx2
 export const userLoginFn = (info) => {
  return async (dispatch) => {
   try {
-   const data = await userServ.loginUserServ(info);
-   if (data.errCode === 0) {
+   const { noErrors } = constVals.ObjectKeysValues;
+   const data = await userServClient.loginUserServ(info);
+
+   if (data.errCode === noErrors) {
     dispatch(userActionFnStates.succeededLoginFn(data.user));
    } else {
     dispatch(userActionFnStates.failedLoginFn());

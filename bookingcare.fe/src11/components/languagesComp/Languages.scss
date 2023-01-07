@@ -1,0 +1,14 @@
+@import '../../styles/_variables';
+
+.languages-content {
+ margin-right: $margin100 - 40;
+ line-height: $height40;
+ padding: 0 $padding24/3;
+ font-weight: $fontWeight500;
+ text-align: center;
+ cursor: pointer;
+
+ &:hover {
+  background-color: $menuHoverColor;
+ }
+}

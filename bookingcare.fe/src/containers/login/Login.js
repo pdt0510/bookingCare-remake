@@ -1,19 +1,28 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
 import './Login.scss';
 import Commons from '../../utilities/Commons';
-import { clientMessages } from '../../utilities/constant';
 import * as combinedActions from '../../store/actions';
+import Languages from '../../components/languagesComp/Languages';
+import * as constVars from './../../utilities/index';
+import { FormattedMessage, injectIntl } from 'react-intl';
+import { paths } from './../../supplies/routeSupplies';
+import withRouterHOC from '../withRouterHOC';
+import EyeComp from './../../components/eyeComp/EyeComp';
 
-//Login2
 class Login extends Component {
  state = {
-  email: '',
-  password: '',
+  email: 'tintuc271@gmail.com',
+  password: 'PhanTai@123',
   apiMes: '',
   emailMess: '',
   passwordMess: '',
   isHide: true,
+ };
+
+ navigateToSystem = () => {
+  this.props.router.navigate(paths.system, { replace: true });
  };
 
  handleLogged = async () => {
@@ -22,15 +31,22 @@ class Login extends Component {
   const isPassword = await Commons.checkPasswordRegex(password);
 
   if (isEmail && isPassword) {
-   const result = await this.props.userLoginFn({ email, password }); // v45xx2
+   this.props.toggleLoadingGif();
+   const { delayTime, succeeded } = constVars.ObjectKeysValues;
+   const result = await this.props.userLoginFn({ email, password });
 
-   if (result.errCode === 0) {
+   if (result.errCode === noErrors) {
+    setTimeout(() => {
+     this.navigateToSystem();
+     this.props.toggleLoadingGif();
+    }, delayTime);
+
     this.resetForm();
    } else {
     this.setMessToForm(result.message);
    }
   } else {
-   const { emailErr, passwordErr } = clientMessages;
+   const { emailErr, passwordErr } = constVars.clientMessages;
    this.setMessToForm(
     null,
     isEmail === false ? emailErr : null,
@@ -62,24 +78,30 @@ class Login extends Component {
   });
  };
 
- toggleEyes = () => {
+ triggerEyes = () => {
   this.setState({
    isHide: !this.state.isHide,
   });
  };
 
- renderEyes = () => {
-  return this.state.isHide ? <i className='fas fa-eye-slash' /> : <i className='fas fa-eye'></i>;
+ renderMessageL = (mesL) => {
+  return this.props.intl.formatMessage({ id: mesL });
  };
 
  render() {
   const { email, password, emailMess, passwordMess, apiMes, isHide } = this.state;
+  const { loginL, passwordL, forgottenL, orSignInWithL, yourEmailL, yourPasswordL } =
+   constVars.loginLangs;
 
   return (
    <div className='login-content'>
     <div className='login-bgr'>
      <form className='login-form'>
-      <div className='login-header'>Login</div>
+      {/* v46xx1 */}
+      <Languages hideLangsWord={true} />
+      <div className='login-header'>
+       <FormattedMessage id={loginL} />
+      </div>
       <div className='login-body'>
        <div className='form-group'>
         <label htmlFor='emailHtmlFor'>Email</label>
@@ -87,7 +109,7 @@ class Login extends Component {
          type='text'
          id='emailHtmlFor'
          className='form-control'
-         placeholder='Your email...'
+         placeholder={this.renderMessageL(yourEmailL)}
          name='email'
          value={email}
          onChange={this.handleInput}
@@ -96,41 +118,42 @@ class Login extends Component {
        </div>
        <div className='form-group'>
         <div className='group-flex'>
-         <label htmlFor='passwordHtmlFor'>Password</label>
-         <div
-          className='login-eye'
-          onClick={this.toggleEyes}
-         >
-          {this.renderEyes()}
-         </div>
+         <label htmlFor='passwordHtmlFor'>
+          <FormattedMessage id={passwordL} />
+         </label>
+         <EyeComp
+          isHide={isHide}
+          triggerEyes={this.triggerEyes}
+         />
         </div>
         <input
          type={isHide ? 'password' : 'text'}
          id='passwordHtmlFor'
          className='form-control'
-         placeholder='Your password...'
+         placeholder={this.renderMessageL(yourPasswordL)}
          name='password'
          value={password}
+         autoComplete='on'
          onChange={this.handleInput}
         />
         <span className='login-mess'>{passwordMess && passwordMess}</span>
         <span className='login-mess'>{apiMes && apiMes}</span>
        </div>
-       <a
-        href='##'
-        className='forgotten-password'
-       >
-        Forgotten password ?
-       </a>
+       <div className='forgotten-password'>
+        <FormattedMessage id={forgottenL} />
+       </div>
+
        <div
         className='BTN BTN-success btn-login'
         onClick={this.handleLogged}
        >
-        Login
+        <FormattedMessage id={loginL} />
        </div>
       </div>
       <div className='login-footer'>
-       <span>or Sign in with</span>
+       <span>
+        <FormattedMessage id={orSignInWithL} />
+       </span>
        <div className='login-icons'>
         <i className='fab fa-facebook facebook-color'></i>
         <i className='fab fa-google-plus google-color'></i>
@@ -145,12 +168,16 @@ class Login extends Component {
 
 const mapStateToProps = ({ appReducer, userReducer }) => ({
  language: appReducer.language,
- isLoggedIn: userReducer.isLoggedIn, //v45xx2
- userInfo: userReducer.userInfo,
+ isLoggedIn: userReducer.isLoggedIn,
 });
 
 const mapDispatchToProps = (dispatch) => ({
- userLoginFn: (info) => dispatch(combinedActions.userLoginFn(info)), //v45xx2
+ userLoginFn: (info) => dispatch(combinedActions.userLoginFn(info)),
+ toggleLoadingGif: () => dispatch(combinedActions.toggleLoadingGif()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default compose(
+ injectIntl,
+ withRouterHOC,
+ connect(mapStateToProps, mapDispatchToProps),
+)(Login);

@@ -1,10 +1,11 @@
 import * as varConsts from '../../utilities/constant';
 import actionTypes from '../actions/actionTypes';
 
-const { language, vi, en } = varConsts.ObjectKeysValues;
+const { language, vi, en, isLoadingSymbol } = varConsts.ObjectKeysValues;
 const initialState = {
  started: false,
  [language]: vi,
+ [isLoadingSymbol]: false,
 };
 
 const appReducer = (state = initialState, action) => {
@@ -19,6 +20,12 @@ const appReducer = (state = initialState, action) => {
   return {
    ...state,
    [language]: state.language === varConsts.LANGUAGES.EN ? vi : en,
+  };
+ }
+ if (type === actionTypes.TOGGLE_LOADING) {
+  return {
+   ...state,
+   isLoadingSymbol: !state.isLoadingSymbol,
   };
  }
  return state;

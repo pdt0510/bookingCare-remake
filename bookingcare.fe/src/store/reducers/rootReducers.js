@@ -7,7 +7,7 @@ import storage from 'redux-persist/lib/storage';
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 import { ObjectKeysValues } from '../../utilities/constant';
 
-const { user, isLoggedIn, userInfo, app, language, isLoadingSymbol } = ObjectKeysValues;
+const { user, isLoggedIn, userInfo, app, language } = ObjectKeysValues;
 
 const commonPersistConfig = {
  storage,
@@ -16,9 +16,8 @@ const commonPersistConfig = {
 
 const userPersistConfig = {
  ...commonPersistConfig,
- key: user, //key for Local storage
- whitelist: [isLoadingSymbol], //v45xx3
- blacklist: [isLoggedIn, userInfo],
+ key: user,
+ whitelist: [isLoggedIn, userInfo],
 };
 
 const appPersistConfig = {

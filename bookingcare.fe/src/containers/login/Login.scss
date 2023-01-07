@@ -9,13 +9,25 @@
   justify-content: center;
 
   .login-form {
-   background-color: white;
    width: $width320;
+   background-color: white;
    border-radius: $borderRadius16;
+   overflow: hidden;
+
+   .languages-content {
+    width: $height40;
+    line-height: $lineHeight40 - 4;
+    margin: 0 0 0 auto;
+    font-weight: $fontWeight500 + 100;
+
+    &:hover {
+     background-color: #ddd5d54d;
+    }
+   }
 
    .login-header {
     font-size: $fontSize16 + 20;
-    margin: $distance24 0 $distance48;
+    margin-bottom: $distance48;
     font-weight: $fontWeight500;
     text-align: center;
    }
@@ -34,23 +46,20 @@
      .group-flex {
       display: flex;
       justify-content: space-between;
-
-      .login-eye {
-       cursor: pointer;
-       color: $activeColor;
-       padding: 0 $distance24/3;
-      }
      }
     }
 
     .forgotten-password {
-     display: block;
-     text-align: right;
-     margin: 8 -$distance24 0 $distance24;
+     width: fit-content;
+     padding: $distance24/6 $distance24/3;
+     margin: 8-$distance24 0 $distance24 auto;
      font-size: $fontSize16 - 4;
+     color: $customBlueColor;
+     cursor: pointer;
 
      &:hover {
       text-decoration: none;
+      opacity: $opacity07;
      }
     }
 
@@ -88,7 +97,7 @@
       }
 
       &:hover {
-       opacity: 0.8;
+       opacity: $opacity07;
        cursor: pointer;
       }
      }

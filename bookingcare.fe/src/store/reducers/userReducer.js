@@ -1,12 +1,11 @@
 import { ObjectKeysValues } from '../../utilities/constant';
 import actionTypes from '../actions/actionTypes';
 
-const { isLoggedIn, userInfo, isLoadingSymbol } = ObjectKeysValues;
+const { isLoggedIn, userInfo } = ObjectKeysValues;
 
 const initialState = {
  [isLoggedIn]: false,
  [userInfo]: null,
- [isLoadingSymbol]: false,
 };
 
 const userReducer = (state = initialState, action) => {
@@ -15,8 +14,7 @@ const userReducer = (state = initialState, action) => {
   return {
    ...state,
    [isLoggedIn]: true,
-   [isLoadingSymbol]: true,
-   [userInfo]: action.payload.info, //v45xx2
+   [userInfo]: action.payload.info,
   };
  }
 

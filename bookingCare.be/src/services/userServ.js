@@ -2,28 +2,52 @@ import { apiStates } from '../supplies/apiSupplies';
 import db from '../models/index';
 import bcrypt from 'bcrypt';
 
-export const loginUserServ = (info) => {
+export const updateUserByIdServ = (newData) => {
  return new Promise(async (resolve, reject) => {
   try {
-   let result = {
-    errCode: apiStates.incorrectInfo.errCode,
-    status: apiStates.incorrectInfo.status,
-    message: apiStates.incorrectInfo.mesGroup.account,
-   };
+   const id = newData.id;
+   let result = apiStates.notCreated;
 
    const user = await db.users.findOne({
-    where: { email: info.email },
-    attributes: ['id', 'email', 'password', 'firstName', 'lastName'],
+    where: { id },
    });
 
    if (user) {
-    const isMatched = await checkPassword(info.password, user.password);
-    if (isMatched) {
-     result = {
-      ...apiStates.noErrors,
-      user: { ...user, password: undefined },
-     };
-    }
+    const success = 1;
+    const dataForUpdate = {
+     ...newData,
+     id: undefined, //v52xx3
+    };
+    const isChecked = await db.users.update(dataForUpdate, {
+     where: { id },
+    });
+    result = isChecked[0] === success ? apiStates.noErrors : apiStates.notCreated;
+   } else {
+    result = apiStates.notFound;
+   }
+
+   resolve(result);
+  } catch (error) {
+   reject(error);
+  }
+ });
+};
+
+export const getUserByIdServ = (id) => {
+ return new Promise(async (resolve, reject) => {
+  try {
+   let result = apiStates.notFound;
+
+   const user = await db.users.findOne({
+    where: { id },
+    attributes: ['email', 'firstname', 'lastname', 'address'],
+   });
+
+   if (user) {
+    result = {
+     ...apiStates.noErrors,
+     user,
+    };
    }
 
    resolve(result);
@@ -61,25 +85,34 @@ export const deleteUserByIdServ = (id) => {
  });
 };
 
-export const updateUserByIdServ = (id, newData) => {
+// v50xx1
+export const createAccountServ = (newData) => {
  return new Promise(async (resolve, reject) => {
   try {
+   const successed = true;
    let result = apiStates.notCreated;
 
-   const user = await db.users.findOne({
-    where: { id },
+   const isExisted = await db.users.findOne({
+    where: { email: newData.email },
    });
 
-   if (user) {
-    const success = 1;
-    const isChecked = await db.users.update(newData, {
-     where: { id },
-    });
-    result = isChecked[0] === success ? apiStates.noErrors : apiStates.notCreated;
+   if (isExisted) {
+    result = {
+     errCode: apiStates.incorrectInfo.errCode,
+     status: apiStates.incorrectInfo.status,
+     message: apiStates.incorrectInfo.mesGroup.existedEmail,
+    };
    } else {
-    result = apiStates.notFound;
-   }
+    const hashedPassword = await convertToHashedPassword(newData.password);
+    const isCreated = await db.users.create({
+     ...newData,
+     password: hashedPassword,
+    });
 
+    if (isCreated._options.isNewRecord === successed) {
+     result = apiStates.noErrors;
+    }
+   }
    resolve(result);
   } catch (error) {
    reject(error);
@@ -87,21 +120,28 @@ export const updateUserByIdServ = (id, newData) => {
  });
 };
 
-export const getUserByIdServ = (id) => {
+export const loginUserServ = (info) => {
  return new Promise(async (resolve, reject) => {
   try {
-   let result = apiStates.notFound;
+   let result = {
+    errCode: apiStates.incorrectInfo.errCode,
+    status: apiStates.incorrectInfo.status,
+    message: apiStates.incorrectInfo.mesGroup.account,
+   };
 
    const user = await db.users.findOne({
-    where: { id },
-    attributes: ['email', 'firstName', 'lastName'],
+    where: { email: info.email },
+    attributes: ['id', 'email', 'password', 'firstname', 'lastname'],
    });
 
    if (user) {
-    result = {
-     ...apiStates.noErrors,
-     user,
-    };
+    const isMatched = await checkPassword(info.password, user.password);
+    if (isMatched) {
+     result = {
+      ...apiStates.noErrors,
+      user: { ...user, password: undefined },
+     };
+    }
    }
 
    resolve(result);
@@ -116,7 +156,7 @@ export const getAllUsersApiServ = () => {
   try {
    let result = apiStates.notCreated;
    const users = await db.users.findAll({
-    attributes: ['email', 'firstName', 'lastName'],
+    attributes: ['id', 'email', 'firstname', 'lastname', 'address'],
    });
 
    if (users) {
@@ -124,29 +164,6 @@ export const getAllUsersApiServ = () => {
      ...apiStates.noErrors,
      users,
     };
-   }
-
-   resolve(result);
-  } catch (error) {
-   reject(error);
-  }
- });
-};
-
-export const createTestAccountServ = (newData) => {
- return new Promise(async (resolve, reject) => {
-  try {
-   const successed = true;
-   let result = apiStates.notCreated;
-   const hashedPassword = await convertToHashedPassword(newData.password);
-
-   const isCreated = await db.users.create({
-    ...newData,
-    password: hashedPassword,
-   });
-
-   if (isCreated._options.isNewRecord === successed) {
-    result = apiStates.noErrors;
    }
 
    resolve(result);

@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import '../styles/styles.scss';
+import './App.scss';
 import 'react-toastify/dist/ReactToastify.css';
-import { BrowserRouter } from 'react-router-dom';
-import GetAllRoutes from './GetAllRoutes';
+import { Route, Routes } from 'react-router-dom';
+import { parentRoutes, paths, systemRoutes } from '../supplies/routeSupplies';
+import LoadingGif from '../components/loadingGif/LoadingGif';
+import ToastComp from '../components/toast/ToastComp';
 
+//App2.js
 class App extends Component {
  state = {
   isCompleted: false,
@@ -32,17 +36,56 @@ class App extends Component {
   });
  };
 
+ renderChildRoutes = (list) => {
+  const tempList = list.map((childRoute, idx) => {
+   const { path, element, index } = childRoute;
+   return (
+    <Route
+     key={idx}
+     index={index}
+     path={index ? null : path}
+     element={element}
+    />
+   );
+  });
+
+  return tempList;
+ };
+
+ renderParentRoutes = (list) => {
+  const tempList = list.map((route, idx) => {
+   const { path, element } = route;
+   return (
+    <Route
+     key={idx}
+     path={path}
+     element={element}
+    >
+     {path === paths.system && this.renderChildRoutes(systemRoutes)}
+    </Route>
+   );
+  });
+
+  return <Routes>{tempList}</Routes>;
+ };
+
  render() {
   return (
-   <BrowserRouter>
-    <div className='app'>{this.state.isCompleted && <GetAllRoutes />}</div>
-   </BrowserRouter>
+   <div className='app'>
+    {this.state.isCompleted &&
+     parentRoutes &&
+     parentRoutes.length > 0 &&
+     this.renderParentRoutes(parentRoutes)}
+    {this.props.isLoadingSymbol && <LoadingGif />}
+    <ToastComp />
+   </div>
   );
  }
 }
 
-const mapStateToProps = ({ appReducer }) => ({
+const mapStateToProps = ({ appReducer, userReducer }) => ({
  language: appReducer.language,
+ isLoadingSymbol: appReducer.isLoadingSymbol,
 });
 
 const mapDispatchToProps = (dispatch) => ({});

@@ -1,0 +1,45 @@
+@import '_variables.scss';
+
+* {
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+}
+
+body,
+html {
+ background-image: '#fff';
+ background-repeat: no-repeat;
+ background-size: cover;
+ font-family: $fontmain;
+ font-size: $fontSize16 - 2;
+ height: $height100vh;
+ overflow: hidden;
+}
+
+.BTN {
+ display: inline-block;
+ min-width: 60px;
+ padding: $padding24/6 $padding24/3;
+ margin: 0 $margin24/3;
+ border-radius: $borderRadius16/4;
+ text-align: center;
+ cursor: pointer;
+ color: white;
+
+ &:hover {
+  opacity: 0.8;
+ }
+
+ &.BTN-default {
+  background-color: $defaultColor;
+ }
+
+ &.BTN-success {
+  background-color: $successColor;
+ }
+
+ &.BTN-danger {
+  background-color: $dangerColor;
+ }
+}

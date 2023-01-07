@@ -1,0 +1,38 @@
+@import '../../styles/_variables';
+
+.userManager-content {
+ width: 96%;
+ margin: 0 auto;
+
+ .userManager-header {
+  display: block;
+  text-align: center;
+  font-size: 36px;
+ }
+
+ .btn-add {
+  padding: 8px 8px;
+  margin: 8px 0;
+ }
+
+ .userManager-table {
+  .table-tbody {
+   td {
+    vertical-align: bottom;
+   }
+
+   .table-noData {
+    text-align: center;
+   }
+
+   .btn-edit {
+    margin-right: 16px;
+   }
+  }
+ }
+}
+
+.confirm-message {
+ font-weight: 600;
+ font-size: 40px;
+}
